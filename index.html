@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amogham | Multi Cuisine Family Restaurant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#1B1712;
+    --charcoal-2:#241E17;
+    --cream:#F3E9D2;
+    --cream-dim:#D9CBAA;
+    --brick:#B5502E;
+    --brick-light:#D3703F;
+    --maroon:#5B1A18;
+    --brass:#C9A15A;
+    --turmeric:#E0A526;
+    --line: rgba(201,161,90,0.35);
+    --shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--charcoal);
+    color:var(--cream);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:600; letter-spacing:0.2px;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ::selection{background:var(--brick); color:var(--cream);}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 5vw;
+    background:rgba(27,23,18,0.0);
+    transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  header.scrolled{
+    background:rgba(27,23,18,0.92);
+    backdrop-filter:blur(6px);
+    padding:12px 5vw;
+    box-shadow:0 6px 24px rgba(0,0,0,0.35);
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:34px; height:34px; border-radius:50%;
+    border:1.5px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:16px; color:var(--brass);
+  }
+  .brand-name{font-family:'Fraunces',serif; font-size:19px; letter-spacing:0.5px; color:var(--cream);}
+  .brand-name span{color:var(--brick-light); font-style:italic; font-weight:400;}
+  nav ul{list-style:none; display:flex; gap:34px;}
+  nav a{font-size:14px; color:var(--cream-dim); position:relative; padding-bottom:4px;}
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--brass); transition:width .3s ease;
+  }
+  nav a:hover{color:var(--cream);}
+  nav a:hover::after{width:100%;}
+  .nav-toggle{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
+  .nav-toggle span{width:24px; height:2px; background:var(--cream);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:0 6vw;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(181,80,46,0.18), transparent 60%),
+      repeating-linear-gradient(135deg, rgba(201,161,90,0.03) 0px, rgba(201,161,90,0.03) 2px, transparent 2px, transparent 40px),
+      var(--charcoal);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:''; position:absolute; inset:0;
+    border:1px solid var(--line); margin:22px;
+    pointer-events:none;
+    opacity:0; animation: frameIn 1.2s .6s ease forwards;
+  }
+  @keyframes frameIn{ to{opacity:1;} }
+  .eyebrow{
+    font-size:13px; letter-spacing:3px; color:var(--brass);
+    opacity:0; transform:translateY(10px);
+    animation: riseIn .8s .1s ease forwards;
+  }
+  .hero h1{
+    font-size:clamp(48px, 9vw, 108px);
+    line-height:0.95; color:var(--cream);
+    margin:18px 0 10px;
+    opacity:0; transform:translateY(20px);
+    animation: riseIn .9s .25s ease forwards;
+  }
+  .hero h1 em{color:var(--brick-light); font-style:italic; font-weight:400;}
+  .hero-sub{
+    max-width:520px; font-size:16px; color:var(--cream-dim);
+    opacity:0; transform:translateY(15px);
+    animation: riseIn .9s .45s ease forwards;
+  }
+  .hero-cta{
+    margin-top:38px; display:flex; gap:18px; flex-wrap:wrap; justify-content:center;
+    opacity:0; transform:translateY(15px);
+    animation: riseIn .9s .65s ease forwards;
+  }
+  @keyframes riseIn{ to{opacity:1; transform:translateY(0);} }
+
+  .btn{
+    padding:14px 30px; border-radius:2px; font-size:14px; letter-spacing:0.5px;
+    border:1px solid var(--brass); transition:all .3s ease; display:inline-block;
+  }
+  .btn-solid{background:var(--brick); border-color:var(--brick); color:var(--cream);}
+  .btn-solid:hover{background:var(--brick-light); border-color:var(--brick-light);}
+  .btn-outline{color:var(--cream); }
+  .btn-outline:hover{background:var(--brass); color:var(--charcoal);}
+
+  .hero-tagline{
+    position:absolute; bottom:34px; font-size:12px; letter-spacing:2px; color:var(--cream-dim);
+    opacity:0; animation: riseIn 1s 1s ease forwards;
+  }
+  .hero-tagline::before, .hero-tagline::after{content:'—'; margin:0 10px; color:var(--brass);}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:110px 6vw;}
+  .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+  .section-head .eyebrow{display:block; margin-bottom:12px;}
+  .section-head h2{font-size:clamp(32px,4vw,46px); color:var(--cream);}
+  .section-head p{color:var(--cream-dim); margin-top:14px; font-size:15px;}
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    background:var(--charcoal-2);
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  }
+  .about-copy h3{font-size:clamp(26px,3vw,36px); color:var(--cream); margin-bottom:18px;}
+  .about-copy p{color:var(--cream-dim); font-size:15.5px; margin-bottom:16px; max-width:480px;}
+  .about-stats{display:flex; gap:40px; margin-top:30px;}
+  .about-stats div strong{display:block; font-family:'Fraunces',serif; font-size:30px; color:var(--brick-light);}
+  .about-stats div span{font-size:12px; color:var(--cream-dim); letter-spacing:0.5px;}
+  .about-photo{
+    position:relative; border:1px solid var(--line); padding:14px;
+  }
+  .about-photo img{filter:saturate(1.05) contrast(1.02);}
+
+  /* ---------- HERITAGE ---------- */
+  .heritage{
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(224,165,38,0.08), transparent 55%),
+      var(--charcoal);
+  }
+  .heritage-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:26px;
+  }
+  .heritage-card{
+    border:1px solid var(--line); padding:32px 26px; text-align:center;
+    transition:border-color .3s ease, transform .3s ease;
+    background:var(--charcoal-2);
+  }
+  .heritage-card:hover{border-color:var(--turmeric); transform:translateY(-6px);}
+  .heritage-icon{font-size:32px; display:block; margin-bottom:16px;}
+  .heritage-card h4{color:var(--turmeric); font-size:16px; margin-bottom:10px;}
+  .heritage-card p{color:var(--cream-dim); font-size:13.5px;}
+  @media (max-width:900px){
+    .heritage-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .heritage-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- MENU ---------- */
+  .menu{background:var(--charcoal);}
+  .menu-tabs{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
+    margin-bottom:50px;
+  }
+  .menu-tab{
+    padding:10px 20px; font-size:13px; letter-spacing:0.4px;
+    border:1px solid var(--line); color:var(--cream-dim);
+    background:transparent; cursor:pointer; border-radius:2px;
+    transition:all .25s ease;
+  }
+  .menu-tab:hover{border-color:var(--brass); color:var(--cream);}
+  .menu-tab.active{background:var(--brick); border-color:var(--brick); color:var(--cream);}
+
+  .menu-panel{display:none;}
+  .menu-panel.active{display:block; animation: fadeUp .5s ease;}
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+
+  .menu-groups{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(360px,1fr));
+    gap:36px;
+  }
+  .menu-group{
+    border:1px dashed var(--line); padding:26px 28px; position:relative;
+  }
+  .menu-group h4{
+    color:var(--brass); font-size:14px; letter-spacing:2px; text-transform:uppercase;
+    margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid var(--line);
+  }
+  .menu-item{
+    display:flex; justify-content:space-between; gap:14px;
+    padding:9px 0; font-size:15px; color:var(--cream);
+    border-bottom:1px dotted rgba(243,233,210,0.12);
+  }
+  .menu-item:last-child{border-bottom:none;}
+  .menu-item .name{color:var(--cream-dim);}
+  .menu-item .name .tag{color:var(--brick-light); font-size:11px; margin-left:6px; font-style:italic;}
+  .menu-item .price{color:var(--brass); font-family:'Fraunces',serif; white-space:nowrap;}
+  .menu-note{
+    text-align:center; margin-top:40px; font-size:12.5px; color:var(--cream-dim); letter-spacing:0.3px;
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--charcoal-2);}
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:220px; gap:14px;
+  }
+  .gallery-grid figure{
+    overflow:hidden; position:relative; cursor:pointer;
+  }
+  .gallery-grid figure:nth-child(1){grid-column:span 2; grid-row:span 2;}
+  .gallery-grid figure:nth-child(4){grid-column:span 2;}
+  .gallery-grid img{
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .6s ease, filter .6s ease;
+    filter:grayscale(0.15) brightness(0.9);
+  }
+  .gallery-grid figure:hover img{transform:scale(1.06); filter:grayscale(0) brightness(1);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px;
+  }
+  .contact .map-wrap{grid-column:1 / -1;}
+  .contact-card{
+    border:1px solid var(--line); padding:40px; background:var(--charcoal-2);
+  }
+  .form-row{display:flex; gap:12px; margin-bottom:12px;}
+  .form-row input{flex:1; min-width:0;}
+  input, textarea{
+    width:100%; background:var(--charcoal); border:1px solid var(--line); color:var(--cream);
+    padding:12px 14px; font-family:'Inter',sans-serif; font-size:14px; border-radius:2px;
+  }
+  textarea{width:100%; resize:vertical; margin-top:2px;}
+  input:focus, textarea:focus{outline:none; border-color:var(--brass);}
+  input::placeholder, textarea::placeholder{color:var(--cream-dim);}
+  .contact-card h3{color:var(--cream); font-size:24px; margin-bottom:22px;}
+  .contact-row{display:flex; gap:16px; margin-bottom:20px; align-items:flex-start;}
+  .contact-row .ico{
+    width:36px; height:36px; border:1px solid var(--brass); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--brass); font-size:14px;
+  }
+  .contact-row div p{color:var(--cream-dim); font-size:14.5px;}
+  .hours-table{width:100%; margin-top:10px;}
+  .hours-table tr td{padding:6px 0; font-size:14px; color:var(--cream-dim); border-bottom:1px dotted rgba(243,233,210,0.1);}
+  .hours-table tr td:last-child{text-align:right; color:var(--cream);}
+
+  .map-wrap{border:1px solid var(--line); min-height:340px; display:flex; align-items:center; justify-content:center; background:var(--charcoal-2);}
+  .map-wrap iframe{width:100%; height:100%; min-height:340px; border:0; filter:invert(0.92) hue-rotate(180deg) contrast(0.9);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:50px 6vw 30px; text-align:center; border-top:1px solid var(--line);
+  }
+  footer .brand-name{justify-content:center; display:flex; margin-bottom:10px;}
+  footer p{color:var(--cream-dim); font-size:13px;}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{opacity:0; transform:translateY(30px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    nav ul{display:none;}
+    .nav-toggle{display:flex;}
+    .about, .contact{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:180px;}
+    .gallery-grid figure:nth-child(1){grid-column:span 2; grid-row:span 1;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="brand">
+    <div class="brand-mark">A</div>
+    <div class="brand-name">Amogham <span>multi cuisine</span></div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#about">Story</a></li>
+      <li><a href="#heritage">Heritage</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Visit</a></li>
+    </ul>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="eyebrow">KORUTLA · FAMILY RESTAURANT &amp; MINI BANQUET HALL</span>
+  <h1>The essence of<br><em>Telangana,</em> on a plate.</h1>
+  <p class="hero-sub">Amogham brings Telangana's home-kitchen spice tradition to a full multi-cuisine table — tandoor-fired kababs, slow-dum biryani, and curries built the way they've always been made here, for family dinners and everything worth celebrating.</p>
+  <div class="hero-cta">
+    <a href="#menu" class="btn btn-solid">View the Menu</a>
+    <a href="#contact" class="btn btn-outline">Reserve a Table</a>
+  </div>
+  <div class="hero-tagline">METPALLY ROAD, KORUTLA</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-copy reveal">
+    <span class="eyebrow" style="color:var(--brass); font-size:13px; letter-spacing:3px;">OUR STORY</span>
+    <h3 style="margin-top:14px;">Multi-cuisine, single roof.</h3>
+    <p>Amogham was built around one idea — that a family restaurant should have something for everyone at the table. Tandoori classics sit alongside Indo-Chinese starters, slow-cooked vegetarian curries, and biryani made the traditional dum way.</p>
+    <p>Every corner of the dining room, from the tufted velvet booths to the warm brass lighting, is designed for long meals and easy conversation.</p>
+    <div class="about-stats">
+      <div><strong>150+</strong><span>MENU ITEMS</span></div>
+      <div><strong>7</strong><span>CUISINE STYLES</span></div>
+      <div><strong>4.5★</strong><span>FAMILY DINING</span></div>
+    </div>
+  </div>
+  <div class="about-photo reveal">
+    <img src="1000267888.jpg" alt="Amogham dining area" onerror="this.style.display='none'">
+  </div>
+</section>
+
+<!-- HERITAGE -->
+<section class="heritage" id="heritage">
+  <div class="section-head reveal">
+    <span class="eyebrow">ROOTED IN TRADITION</span>
+    <h2>Spice, the Telangana way</h2>
+    <p>Every region here has its own hand with a masala. Ours leans on what's grown close by — and cooked slow.</p>
+  </div>
+  <div class="heritage-grid reveal">
+    <div class="heritage-card">
+      <span class="heritage-icon">🌶️</span>
+      <h4>Whole Spice, Ground Fresh</h4>
+      <p>No shortcuts through pre-mixed masala — every curry starts with whole spices, roasted and ground the same day.</p>
+    </div>
+    <div class="heritage-card">
+      <span class="heritage-icon">🔥</span>
+      <h4>Dum, Not Rushed</h4>
+      <p>Our biryani is sealed and slow-cooked over a low flame, the traditional dum way — no shortcuts on time.</p>
+    </div>
+    <div class="heritage-card">
+      <span class="heritage-icon">🌾</span>
+      <h4>Local Ingredients</h4>
+      <p>Vegetables, grains, and dairy sourced close to Korutla — the way home kitchens here have always cooked.</p>
+    </div>
+    <div class="heritage-card">
+      <span class="heritage-icon">👨‍🍳</span>
+      <h4>A Recipe Passed Down</h4>
+      <p>Our tandoor and curry recipes carry the same balance of heat and depth found in Telangana's home cooking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-head reveal">
+    <span class="eyebrow">THE MENU</span>
+    <h2>A table built for sharing</h2>
+    <p>Every dish below, straight from our kitchen card — GST 5% charged extra, and once placed, orders can't be cancelled.</p>
+  </div>
+
+  <div class="menu-tabs" id="menuTabs"></div>
+  <div id="menuPanels"></div>
+
+  <p class="menu-note">📍 #1-4-200/1, Beside Laxmi Apartments, Metpally Road, Korutla – 505326 &nbsp;·&nbsp; ☎ +91 93916 29116</p>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="section-head reveal">
+    <span class="eyebrow">INSIDE AMOGHAM</span>
+    <h2>The dining room</h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <figure><img src="1000267888.jpg" onerror="this.parentElement.style.display='none'"></figure>
+    <figure><img src="1000267896.jpg" onerror="this.parentElement.style.display='none'"></figure>
+    <figure><img src="1000267908.jpg" onerror="this.parentElement.style.display='none'"></figure>
+    <figure><img src="1000267914.jpg" onerror="this.parentElement.style.display='none'"></figure>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-card reveal">
+    <h3>Plan your visit</h3>
+    <div class="contact-row">
+      <div class="ico">📍</div>
+      <div><strong>Address</strong><p>#1-4-200/1, Beside Laxmi Apartments,<br>Metpally Road, Korutla – 505326</p></div>
+    </div>
+    <div class="contact-row">
+      <div class="ico">☎</div>
+      <div><strong>Phone</strong><p>+91 93916 29116</p></div>
+    </div>
+    <div class="contact-row">
+      <div class="ico">🕒</div>
+      <div style="width:100%">
+        <strong>Hours</strong>
+        <table class="hours-table">
+          <tr><td>Lunch</td><td>12:00 PM – 3:30 PM</td></tr>
+          <tr><td>Dinner</td><td>7:00 PM – 11:00 PM</td></tr>
+          <tr><td>Banquet Hall</td><td>By reservation</td></tr>
+        </table>
+      </div>
+    </div>
+    <a href="tel:+919391629116" class="btn btn-solid" style="margin-top:10px; display:inline-block;">Call to Reserve</a>
+  </div>
+
+  <div class="contact-card reveal">
+    <h3>Request a table</h3>
+    <form id="reservationForm">
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="tel" name="phone" placeholder="Phone number" required>
+      </div>
+      <div class="form-row">
+        <input type="date" name="date" required>
+        <input type="time" name="time" required>
+        <input type="number" name="guests" placeholder="Guests" min="1" max="30" required>
+      </div>
+      <textarea name="notes" placeholder="Anything we should know? (optional)" rows="3"></textarea>
+      <button type="submit" class="btn btn-solid" style="width:100%; margin-top:14px; border:none; cursor:pointer;">Send Request</button>
+      <p id="reservationStatus" style="margin-top:14px; font-size:13.5px; color:var(--cream-dim);"></p>
+    </form>
+  </div>
+
+  <div class="map-wrap reveal">
+    <iframe loading="lazy" src="https://www.google.com/maps?q=Korutla+505326&output=embed"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="brand-name">Amogham <span style="color:var(--brick-light); font-style:italic; font-weight:400;">multi cuisine</span></div>
+  <p>© <span id="year"></span> Amogham Family Restaurant &amp; Mini Banquet Hall, Korutla. A taste you will remember..!!</p>
+</footer>
+
+<script>
+/* ---------------- API CONFIG ---------------- */
+// Point this at your deployed backend, e.g. "https://amogham-api.onrender.com"
+const API_BASE = "http://localhost:5000";
+
+/* ---------------- STATIC FALLBACK MENU ---------------- */
+/* Used only if the live API can't be reached, so the site never shows a blank menu */
+const MENU = {
+  "Soups & Sides": {
+    "Vegetarian Soup": [
+      ["Tomato Cream Soup",120],["Sweet Corn Soup",120],["Veg Manchow Soup",120],
+      ["Lemon Coriander Soup",120],["Hot and Sour Soup",120]
+    ],
+    "Non-Vegetarian Soup": [
+      ["Chicken Corn Soup",140],["Chicken Manchow Soup",140],["Chicken Lemon Coriander Soup",140],
+      ["Chicken Hot and Sour Soup",140],["Chicken Garlic Soup",140]
+    ],
+    "Sides": [
+      ["Roasted Papad",40],["Masala Papad",50],["Cucumber Salad",50],["Mixed Salad",50],
+      ["Boiled Eggs (2)",40],["Omlette",60],["Plain Curd",40],["Plain Curd Half",20]
+    ]
+  },
+  "Starters": {
+    "Vegetarian Starters": [
+      ["Veg Manchurian",210],["Crispy Veg","210","Special"],["Veg Bullets",220],
+      ["French Fries (Salted)",200],["French Fries (Peri-peri)",210],["Gobi Manchurian",210],
+      ["Chilli Gobi",220],["Gobi 65",220],["Crispy Corn",210],["Crispy Baby Corn",250],
+      ["Chilli Baby Corn",250],["Baby Corn 65",250],["Mushroom Manchuria",240],["Mushroom 65",240],
+      ["Chilli Mushroom",240],["Pepper Mushroom",260],["Chilli Paneer",270],["Schezwan Paneer",260],
+      ["Paneer 65",260],["Paneer Majestic","260","Special"],["Pepper Paneer",260],["Kaju Paneer 65",260],
+      ["Paneer Lollipop","260","Special"],["Kaju Roast","290","Special"]
+    ],
+    "Non-Vegetarian Starters": [
+      ["Egg Manchurian",220],["Egg 65",220],["Chilli Egg",220],["Egg Pakoda","220","Special"],
+      ["Chicken Manchurian",260],["Chicken 65",260],["Chilli Chicken",260],["Chicken 555",280],
+      ["Pepper Chicken",270],["Kaju Chicken",280],["Fried Chicken",260],["Hongkong Chicken",270],
+      ["Chicken Pakoda",260],["Chicken Majestic","270","Special"],["Chicken Lollipop (6)",270],
+      ["Chicken Drumsticks (6)",270],["Chicken Wings Roast (8)",280],["Chicken Ghee Roast","290","Special"],
+      ["Apollo Fish (Dry/Wet)","300","Special"],["Pepper Fish",300],["Chilli Fish",300],
+      ["Chilli Garlic Fish",310],["Chilli Prawns",310],["Schezwan Prawns",310],["Loose Prawns",310],
+      ["Pepper Prawns","310","Special"],["Golden Fried Prawns","310","Special"]
+    ]
+  },
+  "Tandoori": {
+    "Vegetarian Tandoori": [
+      ["Veg Seekh Kabab",250],["Veg Harabhara Kabab","280","Special"],["Paneer Tikka Kabab","280","Special"],
+      ["Malai Paneer Kabab",280],["Paneer Banjara Kabab",280]
+    ],
+    "Non-Vegetarian Tandoori": [
+      ["Tandoori Chicken (Half)",320],["Tandoori Chicken (Full)",550],["Tangdi Kabab (Half)",200],
+      ["Tangdi Kabab (Full)",360],["Chicken Wings Tikka (8)",300],["Chicken Tikka Kabab",310],
+      ["Murgh Reshmi Kabab","310","Special"],["Murgh Malai Kabab",310],["Murgh Hariyali Kabab",310],
+      ["Murgh Banjara Kabab",310],["Mutton Seekh Kabab","360","Special"],["Fish Tikka Kabab",310],
+      ["Prawns Tikka Kabab","310","Special"]
+    ]
+  },
+  "Curries": {
+    "Vegetarian Curries": [
+      ["Dal Fry",190],["Dal Tadka",190],["Kadai Veg",240],["Mixed Veg",230],["Veg Kolhapuri",240],
+      ["Veg Marwadi","250","Special"],["Amogham Special Veg Curry","250","Special"],["Mushroom Masala",250],
+      ["Kadai Mushroom",250],["Palak Paneer",250],["Kadai Paneer",260],["Matar Paneer",260],
+      ["Paneer Butter Masala",260],["Methi Chaman","270","Special"],["Kaju Masala",270],
+      ["Kaju Paneer Masala","270","Special"],["Paneer Tikka Masala",270],["Shahi Paneer",270],
+      ["Paneer Chatpata","270","Special"],["Paneer Maharani","270","Special"],["Paneer Marwadi","270","Special"]
+    ]
+  },
+  "Indian Breads": {
+    "Breads": [
+      ["Phulka",20],["Butter Phulka",25],["Rumali Roti",30],["Tandoori Roti",30],["Butter Roti",35],
+      ["Garlic Roti",45],["Plain Naan",40],["Butter Naan",50],["Garlic Naan",60],["Masala Kulcha",70],
+      ["Stuffed Kulcha",70],["Paneer Kulcha",80],["Aloo Paratha",70],["Paneer Paratha",80]
+    ]
+  },
+  "Rice & Biryani": {
+    "Fried Rice & Vegetarian/Egg Biryani": [
+      ["Egg Fried Rice",200],["Egg Schezwan Fried Rice",210],["Egg Garlic Fried Rice",210],
+      ["Chicken Fried Rice",230],["Chicken Schezwan Fried Rice",240],["Chicken Garlic Fried Rice",240],
+      ["Prawns Fried Rice",250],["Prawns Schezwan Fried Rice",250],["Prawns Garlic Fried Rice",250],
+      ["Egg Biryani",200],["Egg Biryani Family Pack",440]
+    ],
+    "Chicken Biryani": [
+      ["Chicken Dum Biryani Mini",150],["Chicken Dum Biryani Full",250],["Chicken Dum Biryani Family Pack",600],
+      ["Chicken Dum Biryani Jumbo Pack",840],["Chicken Fry Piece Biryani","280","Special"],
+      ["Chicken 65 Biryani",280],["Chicken Lollipop Biryani",290],["Chicken Tangdi Biryani",290],
+      ["Chicken Tangdi Biryani Family Pack","620","Special"],["Chicken Tandoori Biryani","280","Special"],
+      ["Chicken Tandoori Biryani Family Pack",580],["Amogham Special Chicken Biryani","280","Special"],
+      ["Amogham Special Chicken Biryani Family Pack","580","Special"]
+    ],
+    "Mutton, Fish & Prawns Biryani": [
+      ["Mutton Dum Biryani Mini",200],["Mutton Dum Biryani Full",350],["Mutton Dum Biryani Family Pack",770],
+      ["Mutton Nalli Gosht Biryani",390],["Mutton Kheema Biryani","390","Special"],["Fish Biryani",300],
+      ["Prawns Biryani",330],["Mixed Non-Veg Biryani Full","370","Special"],["Mixed Non-Veg Biryani Family Pack",730]
+    ]
+  },
+  "Desserts & Beverages": {
+    "Desserts": [
+      ["Gulab Jamun (2)",60],["Gulab Jamun (2) with Vanilla Ice Cream",100],["Gajar ka Halwa",80],
+      ["Khaddu ka Kheer",70],["Ice Cream Scoop (1) — Vanilla/Strawberry/Butterscotch/Chocolate",60]
+    ],
+    "Beverages": [
+      ["Virgin Mojito",80],["Blue Lagoon",80],["Mint Mojito",80],["Black Currant Mojito",50],
+      ["Fresh Lime Soda (Sweet/Salt/Masala)",20],["Soft Drinks",20],["Water Bottle",20]
+    ]
+  }
+};
+
+const tabsEl = document.getElementById('menuTabs');
+const panelsEl = document.getElementById('menuPanels');
+
+function renderMenu(menuObj){
+  tabsEl.innerHTML = '';
+  panelsEl.innerHTML = '';
+  const categories = Object.keys(menuObj);
+
+  categories.forEach((cat, i) => {
+    const tab = document.createElement('button');
+    tab.className = 'menu-tab' + (i===0 ? ' active' : '');
+    tab.textContent = cat;
+    tab.addEventListener('click', () => switchTab(i));
+    tabsEl.appendChild(tab);
+
+    const panel = document.createElement('div');
+    panel.className = 'menu-panel' + (i===0 ? ' active' : '');
+    panel.id = 'panel-' + i;
+
+    const groupsWrap = document.createElement('div');
+    groupsWrap.className = 'menu-groups';
+
+    Object.entries(menuObj[cat]).forEach(([groupName, items]) => {
+      const group = document.createElement('div');
+      group.className = 'menu-group';
+      const h4 = document.createElement('h4');
+      h4.textContent = groupName;
+      group.appendChild(h4);
+      items.forEach(([name, price, tag]) => {
+        const row = document.createElement('div');
+        row.className = 'menu-item';
+        row.innerHTML = `<span class="name">${name}${tag ? `<span class="tag">${tag}</span>` : ''}</span><span class="price">₹${price}</span>`;
+        group.appendChild(row);
+      });
+      groupsWrap.appendChild(group);
+    });
+
+    panel.appendChild(groupsWrap);
+    panelsEl.appendChild(panel);
+  });
+}
+
+function switchTab(index){
+  document.querySelectorAll('.menu-tab').forEach((t,i) => t.classList.toggle('active', i===index));
+  document.querySelectorAll('.menu-panel').forEach((p,i) => p.classList.toggle('active', i===index));
+}
+
+// Turns the flat array the API returns into the { category: { group: [[name,price,tag]] } } shape renderMenu expects
+function shapeApiMenu(items){
+  const shaped = {};
+  items.forEach(item => {
+    if (!shaped[item.category]) shaped[item.category] = {};
+    if (!shaped[item.category][item.group]) shaped[item.category][item.group] = [];
+    shaped[item.category][item.group].push([item.name, item.price, item.tag || null]);
+  });
+  return shaped;
+}
+
+async function loadMenu(){
+  try {
+    const res = await fetch(`${API_BASE}/api/menu`);
+    if (!res.ok) throw new Error('API not reachable');
+    const items = await res.json();
+    if (!items.length) throw new Error('Empty menu — has seed.js been run?');
+    renderMenu(shapeApiMenu(items));
+  } catch (err) {
+    console.warn('Loading fallback menu — could not reach live API:', err.message);
+    renderMenu(MENU);
+  }
+}
+loadMenu();
+
+/* ---------------- RESERVATION FORM ---------------- */
+const reservationForm = document.getElementById('reservationForm');
+const reservationStatus = document.getElementById('reservationStatus');
+
+reservationForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(reservationForm);
+  const payload = Object.fromEntries(formData.entries());
+  payload.guests = Number(payload.guests);
+
+  reservationStatus.textContent = 'Sending your request…';
+  reservationStatus.style.color = 'var(--cream-dim)';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/reservations`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Could not send reservation');
+    reservationStatus.textContent = "Request received — we'll call you to confirm.";
+    reservationStatus.style.color = 'var(--brick-light)';
+    reservationForm.reset();
+  } catch (err) {
+    reservationStatus.textContent = `Couldn't send that: ${err.message}. Please call us instead.`;
+    reservationStatus.style.color = 'var(--brick-light)';
+  }
+});
+
+/* ---------------- HEADER SCROLL ---------------- */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ---------------- SCROLL REVEAL ---------------- */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold:0.15});
+revealEls.forEach(el => io.observe(el));
+
+/* ---------------- MOBILE NAV ---------------- */
+document.getElementById('navToggle').addEventListener('click', () => {
+  const nav = document.querySelector('nav ul');
+  nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+  nav.style.cssText += 'flex-direction:column; position:fixed; top:64px; right:5vw; background:var(--charcoal-2); padding:20px 30px; border:1px solid var(--line); gap:16px;';
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
