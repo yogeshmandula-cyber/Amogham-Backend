@@ -4,7 +4,7 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const connectDB = require('./db');
 
-const authRoutes = require('./authRoutes');
+const authRoutes = require('./auth');
 const menuRoutes = require('./menuRoutes');
 const reservationRoutes = require('./reservationRoutes');
 
